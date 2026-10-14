@@ -33,8 +33,14 @@ export function not(test: Test): Test {
  * caller can take them apart by position.
  */
 export function partition(list: Student[], test: Test): [Student[], Student[]] {
-  // TODO
-  throw new Error('not implemented');
+  let passed: Student[] = []
+  let failed: Student[] = []
+
+  list.forEach(student => {
+    if(test(student)){passed.push(student)}
+    else{failed.push(student)}
+  });
+  return [passed,failed]
 }
 
 // --- B3. Do it once -------------------------------------------------------
@@ -53,8 +59,16 @@ export function partition(list: Student[], test: Test): [Student[], Student[]] {
  * Be ready to say where the saved number lives after once has returned.
  */
 export function once(calculation: () => number): () => number {
-  // TODO
-  throw new Error('not implemented');
+  let isFirst = true;
+  let result: number;
+  return (): number =>
+  {
+    if(isFirst){
+      result = calculation();
+      isFirst = false
+    }
+    return result;
+  }
 }
 
 // --- B4. All of them ------------------------------------------------------
@@ -69,8 +83,14 @@ export function once(calculation: () => number): () => number {
  * With no tests at all, everything passes: there is nothing to fail.
  */
 export function allOf(...tests: Test[]): Test {
-  // TODO
-  throw new Error('not implemented');
+  let allTest: Test = (student:Student): boolean =>{
+    let failed = false;
+    tests.forEach(test =>  
+      { if(!test(student)){failed = true}
+      });
+    return !failed;
+  }
+  return allTest;
 }
 
 // Two small helpers to build tests with, given to you.
