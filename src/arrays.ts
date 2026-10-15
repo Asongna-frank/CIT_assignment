@@ -51,7 +51,8 @@ export function averageGrade(studentId: string): number {
   const gradeFilter = enrolments.filter(enrolment => enrolment.studentId === studentId).filter(enrolment => enrolment.grade !== null)
   .map(enrolment => Number(enrolment.grade))
   if (gradeFilter.length !== 0) {
-    return gradeFilter.reduce((sum, grade) => sum+=grade) / gradeFilter.length 
+    const average = gradeFilter.reduce((sum, grade) => sum + grade, 0) / gradeFilter.length
+    return Math.round(average * 10) / 10
   }
   return 0
 }
