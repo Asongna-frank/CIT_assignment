@@ -33,14 +33,11 @@ export function not(test: Test): Test {
  * caller can take them apart by position.
  */
 export function partition(list: Student[], test: Test): [Student[], Student[]] {
-  let passed: Student[] = []
-  let failed: Student[] = []
-
-  list.forEach(student => {
-    if(test(student)){passed.push(student)}
-    else{failed.push(student)}
-  });
-  return [passed,failed]
+  return list.reduce<[Student[], Student[]]>(
+    ([passed, failed], student) =>
+      test(student) ? [[...passed, student], failed] : [passed, [...failed, student]],
+    [[], []]
+  );
 }
 
 // --- B3. Do it once -------------------------------------------------------
