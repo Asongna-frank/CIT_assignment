@@ -9,7 +9,9 @@
 --
 --     SELECT danish_grade('A'), danish_grade('C-'), danish_grade(NULL);
 --
--- If it is gone, the exercises folder has the file you wrote it in.
+-- If it is gone, danish_grade.sql in this folder creates it. npm start runs
+-- that file automatically; to use the routines below from pgAdmin first, run
+-- danish_grade.sql there before this file.
 
 
 -- B2. A FUNCTION that queries and returns a result set.

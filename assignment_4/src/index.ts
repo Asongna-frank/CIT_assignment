@@ -12,6 +12,10 @@ import {
 import { enrolInTypeScript } from './transaction.js';
 import { transcriptOf, transcriptOrUndefined, enrolWithProcedure } from './procedures.js';
 import { firstCourseTitle, overview, overviewSlowly, removeAndCheckBroken, removeAndCheck } from './async.js';
+import { ensureDanishGrade } from './setup.js';
+
+// Create danish_grade if this database does not have it (see danish_grade.sql).
+await ensureDanishGrade();
 
 // Start from a known state, so this file can be run again after a failure.
 await pool.query("DELETE FROM takes WHERE id = '90000'");
@@ -45,7 +49,8 @@ console.log(await enrolInTypeScript(
 //   3   (the credits of MU-199)
 
 // --- Part B2 and B3: the routines in the database ---
-// First check that danish_grade, from the database exercises, is still there:
+// First check that danish_grade is there (created at the top of this file if
+// it was missing):
 console.log((await pool.query(
   "SELECT danish_grade('A') AS a, danish_grade('C-') AS c, danish_grade(NULL) AS n")).rows[0]);
 //   { a: '12', c: '02', n: null }

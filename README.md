@@ -34,14 +34,18 @@ npm start
 
 Talks to the `university` PostgreSQL database through `pg`. Grades are
 stored on the American letter scale and converted with the `danish_grade`
-database function.
+database function. That function is not part of `university_database.sql`,
+so [`danish_grade.sql`](assignment_4/danish_grade.sql) creates it if it is
+missing. `npm start` runs this automatically before anything else (see
+`src/setup.ts`).
 
 - **Part A, queries** (`src/queries.ts`): listing, finding, inserting and
   deleting students, courses per student, students per department.
 - **Part B, transactions and stored routines** (`src/transaction.ts`,
   `src/procedures.ts`, `procedures.sql`): enrolment as a TypeScript
   transaction and as the `enrol_student` procedure, plus the
-  `student_transcript` function.
+  `student_transcript` function. Run `procedures.sql` in pgAdmin against the
+  `university` database before `npm start`.
 - **Part C, asynchronous code** (`src/async.ts`): sequential vs. parallel
   awaits and error handling.
 
@@ -50,7 +54,8 @@ task description is in
 [`assignment-database-description.md`](assignment_4/assignment-database-description.md).
 The schema is in [`university_database.sql`](assignment_4/university_database.sql).
 
-Requires a running PostgreSQL with the `university` database. Copy
+Requires a running PostgreSQL with the `university` database, with
+`procedures.sql` run against it (`danish_grade` is handled for you). Copy
 `.env.example` to `.env` and fill in your own credentials (`.env` is not
 committed):
 
